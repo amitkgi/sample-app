@@ -13,7 +13,7 @@ jobs:
     name: Build and Push
     runs-on: ubuntu-latest
     env:
-      SERVICE_ACCOUNT_FILE: ${{ secrets.TST }}
+      SERVICE_ACCOUNT_FILE: ${{ vars.TOKEN }}
       IMAGE_TAG: ${{ github.sha }}
 
 
