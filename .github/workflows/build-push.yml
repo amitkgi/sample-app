@@ -15,7 +15,7 @@ jobs:
         # uses: ./
         uses: RafikFarhad/push-to-gcr-github-action@v5-rc1 # <- use this on your workflow
         with:
-          GCLOUD_SERVICE_KEY: "${{ secrets.GCR_TOKEN }}"
+          gcloud_service_key: "${{ secrets.GCR_TOKEN }}"
           registry: gcr.io
           project_id: probable-bebop-418220
           image_name: test-app
