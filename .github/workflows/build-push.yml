@@ -12,6 +12,9 @@ jobs:
   build_and_push:
     name: Build and Push
     runs-on: ubuntu-latest
+    env:
+      SERVICE_ACCOUNT_FILE: ${{ secrets.TEST }}
+      IMAGE_TAG: ${{ github.sha }}
 
 
 
@@ -24,7 +27,7 @@ jobs:
 
     - name: Login to Google Cloud Registry
       # run: echo "$SERVICE_ACCOUNT_FILE" | base64 -d > /tmp/gcp_key.json && docker login -u _json_key --password-stdin us-east1-docker.pkg.dev/probable-bebop-418220/test-app < /tmp/gcp_key.json
-      run: echo "$SERVICE_ACCOUNT_FILE"  > /tmp/gcp_key.json && cat /tmp/gcp_key.json
+      run: printenv && echo "$SERVICE_ACCOUNT_FILE"  > /tmp/gcp_key.json && cat /tmp/gcp_key.json
       
        
  # DOCKER_USERNAME: _json_key
