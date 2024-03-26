@@ -13,7 +13,7 @@ jobs:
     name: Build and Push
     runs-on: ubuntu-latest
     env:
-      SERVICE_ACCOUNT_FILE: ${{ secrets.TEST }}
+      SERVICE_ACCOUNT_FILE: ${{ secrets.TST }}
       IMAGE_TAG: ${{ github.sha }}
 
 
@@ -22,7 +22,7 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
       env:
-        SERVICE_ACCOUNT_FILE: ${{ secrets.TEST }}
+        SERVICE_ACCOUNT_FILE: ${{ secrets.TST }}
         IMAGE_TAG: ${{ github.sha }}
 
     - name: Login to Google Cloud Registry
