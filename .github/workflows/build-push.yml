@@ -12,8 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Building and pushing the image
-        uses: ./
-        # uses: RafikFarhad/push-to-gcr-github-action@v5-rc1 # <- use this on your workflow
+        # uses: ./
+        uses: RafikFarhad/push-to-gcr-github-action@v5-rc1 # <- use this on your workflow
         with:
           credentials: "${{ secrets.GCR_TOKEN }}"
           registry: gcr.io
