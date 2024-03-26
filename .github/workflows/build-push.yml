@@ -1,9 +1,9 @@
 name: Build and Push to GCR
 
-on:
+on: 
   push:
-    tags:
-      - v*
+    branches:
+      - main
 
 # Environment variables available to all jobs and steps in this workflow
 #  GKE_EMAIL: ${{ secrets.GKE_EMAIL }} 
