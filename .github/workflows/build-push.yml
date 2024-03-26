@@ -1,53 +1,34 @@
-name: Build and Push to GCR
+name: Build and Push Docker Image
 
-on: 
+on:
   push:
     branches:
       - main
-
-# Environment variables available to all jobs and steps in this workflow
-#  GKE_EMAIL: ${{ secrets.GKE_EMAIL }} 
-#  GKE_KEY: ${{ secrets.GKE_KEY }} 
-env:
-  IMAGE: us-east1-docker.pkg.dev/probable-bebop-418220/test-app
-  # REGISTRY_HOSTNAME: gcr.io
-
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  setup-build-publish-deploy:
-    name: Setup, Build, and Publish
+  build_and_push:
+    name: Build and Push
     runs-on: ubuntu-latest
-    steps:
 
-    - name: Checkout
+    env:
+      SERVICE_ACCOUNT_FILE: ${{ secrets.GCR_TOKEN }}
+      IMAGE_TAG: ${{ github.sha }}
+
+    steps:
+    - name: Checkout Repository
       uses: actions/checkout@v2
 
-    # Setup gcloud CLI
-    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@main
-      with:
-        version: '270.0.0'
-        service_account_key: ${{ secrets.GCR_TOKEN }} 
+    - name: Login to Google Cloud Registry
+      run: cat "${{ secrets.SERVICE_ACCOUNT_FILE }}" | docker login -u _json_key --password-stdin us-east1-docker.pkg.dev/probable-bebop-418220/test-app
+      # env:
+      #   DOCKER_USERNAME: _json_key
+        # DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
-    # Configure docker to use the gcloud command-line tool as a credential helper
-    - run: |
-        # Set up docker to authenticate
-        # via gcloud command-line tool.
-        gcloud auth configure-docker
+    - name: Build Docker Image
+      run: docker build -t us-east1-docker.pkg.dev/probable-bebop-418220/test-app:${{ env.IMAGE_TAG }} .
 
-    # Build the Docker image
-    - name: Build
-      run: |
-        # export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
-        # echo $TAG
-        docker build -t us-east1-docker.pkg.dev/probable-bebop-418220/test-app .
-          # --build-arg GITHUB_SHA="$GITHUB_SHA" \
-          # --build-arg GITHUB_REF="$GITHUB_REF" 
-
-    # Push the Docker image to Google Container Registry
-    - name: Publish
-      run: |
-        # export TAG=`echo $GITHUB_REF | awk -F/ '{print $NF}'`
-        # echo $TAG
-        docker push us-east1-docker.pkg.dev/probable-bebop-418220/test-app
-        # docker tag "$REGISTRY_HOSTNAME"/"$IMAGE":"$TAG" "$REGISTRY_HOSTNAME"/"$IMAGE":latest
-        # docker push "$REGISTRY_HOSTNAME"/"$IMAGE":latest
+    - name: Push Docker Image
+      run: docker push us-east1-docker.pkg.dev/probable-bebop-418220/test-app:${{ env.IMAGE_TAG }}
