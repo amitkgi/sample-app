@@ -22,9 +22,9 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Login to Google Cloud Registry
-      run: cat "${{ secrets.PASS }}" | docker login -u _json_key --password-stdin us-east1-docker.pkg.dev/probable-bebop-418220/test-app
-      # env:
-      #   DOCKER_USERNAME: _json_key
+      run: echo "${{ secrets.PASS }}" | base64 -d > /tmp/gcp_key.json && docker login -u _json_key --password-stdin us-east1-docker.pkg.dev/probable-bebop-418220/test-app < /tmp/gcp_key.json
+      env:
+        DOCKER_USERNAME: _json_key
         # DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build Docker Image
