@@ -49,10 +49,9 @@ jobs:
     - name: Publish
       run: |-
         docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/web-app"
-    - name: Trigger Terraform
-      if: success()
-      uses: peter-evans/repository-dispatch@v3
+    - name: trigger terraform
+      uses: convictional/trigger-workflow-and-wait@v1.6.1
       with:
-          token: ${{ secrets.REPO_B_ACCESS_TOKEN }}
-          repository: karanbawa48/test-pythonapp-cicd
-          event-type: trigger-workflow-terraform  
+          owner: karanbawa48
+          repo: test-pythonapp-cicd
+          github_token: ${{ secrets.REPO_B_ACCESS_TOKEN }}
