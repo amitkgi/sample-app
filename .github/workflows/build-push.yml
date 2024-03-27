@@ -55,3 +55,4 @@ jobs:
           owner: karanbawa48
           repo: test-pythonapp-cicd
           github_token: ${{ secrets.REPO_B_ACCESS_TOKEN }}
+          workflow_file_name: main.yml
