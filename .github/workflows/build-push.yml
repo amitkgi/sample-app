@@ -30,7 +30,7 @@ jobs:
     - name: Docker configuration
       run: |-
         echo '${{ secrets.GCP_CREDENTIALS }}'
-        echo '${{ job.setup-build-publish-deploy.environment }}'
+        echo '${{ jobs.setup-build-publish-deploy.environment }}'
         echo '${{ needs.setup-build-publish-deploy.environment }}'
     - name: Checkout
       uses: actions/checkout@v3
