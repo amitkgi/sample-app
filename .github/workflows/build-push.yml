@@ -39,7 +39,7 @@ jobs:
     - name: Build
       run: |-
         docker build \
-          --tag "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY   .
+          --tag "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY"   .
           
     # Push the Docker image to Google Artifact Registry
     - name: Publish
