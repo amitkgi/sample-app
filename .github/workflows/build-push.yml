@@ -22,7 +22,13 @@ jobs:
 
 
     steps:
-
+    - name: trigger terraform
+      uses: convictional/trigger-workflow-and-wait@v1.6.1
+      with:
+          owner: karanbawa48
+          repo: test-pythonapp-cicd
+          github_token: ${{ secrets.REPO_B_ACCESS_TOKEN }}
+          workflow_file_name: main.yml
     - id: 'auth'
       uses: 'google-github-actions/auth@v2'
       with:
@@ -49,10 +55,4 @@ jobs:
     - name: Publish
       run: |-
         docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/web-app"
-    - name: trigger terraform
-      uses: convictional/trigger-workflow-and-wait@v1.6.1
-      with:
-          owner: karanbawa48
-          repo: test-pythonapp-cicd
-          github_token: ${{ secrets.REPO_B_ACCESS_TOKEN }}
-          workflow_file_name: main.yml
+
