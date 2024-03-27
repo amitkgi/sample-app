@@ -7,8 +7,7 @@ on:
 env:
   PROJECT_ID: probable-bebop-418220
   GAR_LOCATION: us-east1 # TODO: update region of the Artifact Registry
-  REPOSITORY: probable-bebop-418220
-  IMAGE: test-app
+  REPOSITORY: test-app
 
 jobs:
   setup-build-publish-deploy:
@@ -41,11 +40,11 @@ jobs:
     - name: Build
       run: |-
         docker build \
-          --tag "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA" \
+          --tag "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY:$GITHUB_SHA" \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF"  .
           
     # Push the Docker image to Google Artifact Registry
     - name: Publish
       run: |-
-        docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA"#
+        docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY:$GITHUB_SHA"#
