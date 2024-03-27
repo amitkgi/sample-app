@@ -18,11 +18,10 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  GAR_LOCATION: us-central1 # TODO: update region of the Artifact Registry
-  GKE_CLUSTER: cluster-1    # TODO: update to cluster name
+  GAR_LOCATION: us-east1 # TODO: update region of the Artifact Registry
   GKE_ZONE: us-central1-c   # TODO: update to cluster zone
   DEPLOYMENT_NAME: gke-test # TODO: update to deployment name
-  REPOSITORY: samples # TODO: update to Artifact Registry docker repository
+  REPOSITORY: us-east1-docker.pkg.dev/probable-bebop-418220/test-app # TODO: update to Artifact Registry docker repository
   IMAGE: static-site
 
 jobs:
@@ -38,25 +37,15 @@ jobs:
 
 
     steps:
-
-    
     - name: Docker configuration
       run: |-
-        echo '${{ secrets.GCR_TOKEN }}'
+        echo '${{ secrets.GCP_CREDENTIALS }}'
         #touch '${{ secrets.GCP_CREDENTIALS }}'
-        curl -v '${{ secrets.GCR_TOKEN }}'
+        #curl -v '${{ secrets.GCR_TOKEN }}'
         ls -lhtr
     - name: Checkout
       uses: actions/checkout@v3
 
-    # Configure Workload Identity Federation and generate an access token.
-    #- id: 'auth'
-    #  name: 'Authenticate to Google Cloud'
-    #  uses: 'google-github-actions/auth@v0'
-    #  with:
-    #    token_format: 'access_token'
-    #    workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
-    #    service_account: 'my-service-account@my-project.iam.gserviceaccount.com'
 
     # Alternative option - authentication via credentials json
     - id: 'auth'
