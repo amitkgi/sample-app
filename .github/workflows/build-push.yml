@@ -23,7 +23,10 @@ jobs:
 
     steps:
 
-
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v2'
+      with:
+       credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
     - name: Docker configuration
       run: |-
         echo '${{ secrets.GCP_CREDENTIALS }}'
