@@ -6,7 +6,8 @@ on:
 
 env:
   PROJECT_ID: probable-bebop-418220
-  GAR_LOCATION: uus-east1 # TODO: update region of the Artifact Registry
+  GAR_LOCATION: us-east1 # TODO: update region of the Artifact Registry
+  REPOSITORY: probable-bebop-418220
   IMAGE: test-app
 
 jobs:
