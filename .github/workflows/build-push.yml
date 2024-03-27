@@ -32,6 +32,7 @@ jobs:
         echo '${{ secrets.GCP_CREDENTIALS }}'
         echo '${{ jobs.setup-build-publish-deploy.environment }}'
         echo '${{ needs.setup-build-publish-deploy.environment }}'
+        echo "abc=testing" >> $GITHUB_ENV
     - name: Checkout
       uses: actions/checkout@v3
 
