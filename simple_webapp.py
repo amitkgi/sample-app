@@ -9,5 +9,5 @@ def print_current_date():
     return f"Current Date and Time: {current_date}"
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=8080)
 
