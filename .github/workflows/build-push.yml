@@ -30,7 +30,7 @@ jobs:
     - name: Docker configuration
       run: |-
         echo '${{ secrets.GCP_CREDENTIALS }}'
-        echo '${{ git.ref  }}' >> $GITHUB_ENV
+        echo '${{ github.ref  }}' >> $GITHUB_ENV
         echo "abc=testing" >> $GITHUB_ENV
         echo $GITHUB_ENV
     - name: Checkout
