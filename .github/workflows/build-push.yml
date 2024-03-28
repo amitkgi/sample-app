@@ -34,7 +34,7 @@ jobs:
         echo "abc=testing" >> $GITHUB_ENV
         echo $GITHUB_ENV
         echo "abc=testing" >> $GITHUB_ENV
-        echo 'a=${{ github.ref == "b" && "ABC" || "BBC" }}' >> $GITHUB_ENV
+        echo 'a=${'${{ github.ref }} == "b" && "ABC" || "BBC" }}'}' >> $GITHUB_ENV
         echo $GITHUB_ENV
     - name: Checkout
       uses: actions/checkout@v3
