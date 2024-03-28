@@ -23,6 +23,19 @@ jobs:
 
 
     steps:
+      - name: Set Environment Variable
+        run: |
+          if [ "${{ steps.branch_name.outputs.branch }}" = "main" ]; then
+            echo "ENVIRONMENT=prod" >> $GITHUB_ENV
+          else
+            echo "ENVIRONMENT=stage" >> $GITHUB_ENV
+          fi
+
+      - name: Print Environment Variable
+        run: |
+          echo "Environment: ${{ vars.ENVIRONMENT }}"
+
+    
     - id: 'auth'
       uses: 'google-github-actions/auth@v2'
       with:
